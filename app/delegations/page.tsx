@@ -1,12 +1,4 @@
-import {
-  CarFront,
-  Car,
-  Repeat,
-  Fuel,
-  Home,
-  Calendar,
-  FileText,
-} from "lucide-react";
+import { CarFront, Car, Repeat, Fuel, Home, FileText } from "lucide-react";
 import Menu from "@/components/menu";
 
 export default function DelegationsPage() {
@@ -14,12 +6,12 @@ export default function DelegationsPage() {
     {
       name: "Add new trip",
       icon: CarFront,
-      href: "/trip/delegations/add-trip",
+      href: "/delegations/add-trip",
     },
     {
       name: "Finish trip",
       icon: Car,
-      href: "/trip/delegations/finish-trip",
+      href: "/delegations/finish-trip",
     },
     {
       name: "Delegations",
@@ -29,12 +21,12 @@ export default function DelegationsPage() {
     {
       name: "Fuel",
       icon: Fuel,
-      href: "/trip/delegations/fuel",
+      href: "/delegations/fuel",
     },
     {
       name: "Report",
       icon: FileText,
-      href: "/trip/delegations/report",
+      href: "/delegations/report",
     },
     { name: "Home", icon: Home, href: "/" },
   ];
