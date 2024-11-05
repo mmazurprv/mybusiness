@@ -2,7 +2,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { notFound } from "next/navigation";
-import addTrip from "@/lib/actions/ add-trip";
+import addTrip from "@/lib/actions/add-trip";
 
 export default async function TripPage({
   params,
