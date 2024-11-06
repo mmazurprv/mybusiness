@@ -10,9 +10,9 @@ export default async function TripPage({
   params: Promise<{ slug: string }>;
 }) {
   // Access the tripId parameter from params
-  const tripId = (await params).slug;
+  const delegationId = (await params).slug;
 
-  if (isNaN(Number(tripId))) {
+  if (isNaN(Number(delegationId))) {
     notFound();
   }
 
@@ -23,19 +23,15 @@ export default async function TripPage({
       <form action={addTrip} className="space-y-4">
         {/* Trip Type (Dynamic) */}
         <div>
-          <Label
+          <h1
             className="text-gray-700 font-semibold mb-1"
-            htmlFor="tripType"
           >
-            {"Trip id: " + tripId}
-          </Label>
-          <div id="tripType" className="text-lg font-medium">
-            {tripId}
-          </div>
+            {"Delegation id: " + delegationId}
+          </h1>
         </div>
 
-        {/* Hidden Input for tripId */}
-        <input type="hidden" name="trip-id" value={tripId} />
+        {/* Hidden Input for delegationId */}
+        <input type="hidden" name="delegation-id" value={delegationId} />
 
         {/* Trip Date */}
         <div>
@@ -48,17 +44,15 @@ export default async function TripPage({
           <Input type="date" name="trip-date" className="w-full" />
         </div>
 
-        {/* Trip Time */}
+        {/* Start Trip Time */}
         <div>
           <Label
             className="text-gray-700 font-semibold mb-1"
-            htmlFor="tripTime"
+            htmlFor="startTripTime"
           >
-            Trip Time:
+            Start Trip Time:
           </Label>
-          <div id="tripTime" className="text-lg font-medium">
-            7.5 min
-          </div>
+          <Input type="time" name="start-trip-time" className="w-full" />
         </div>
 
         {/* Submit Button */}
