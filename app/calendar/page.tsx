@@ -1,4 +1,3 @@
-import { client } from "@/lib/db/postgres";
 import { Home } from "lucide-react";
 import { Trip } from "@/lib/types";
 import Menu from "@/components/menu";
