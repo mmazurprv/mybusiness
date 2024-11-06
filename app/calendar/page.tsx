@@ -1,12 +1,12 @@
 import { client } from "@/lib/db/postgres";
 import { Home } from "lucide-react";
-import TripList from "@/components/trips/trips-list";
 import { Trip } from "@/lib/types";
 import Menu from "@/components/menu";
 import { DateNavigatorComponent } from "@/components/date-navigator";
+import TripsList from "@/components/trips/trips-list";
 
 // Fetch trips for the specified day
-async function getTripForDay(date: string): Promise<Trip[]> {
+async function getTripsForDay(date: string): Promise<Trip[]> {
   const trips = await client`
     SELECT *
     FROM trips
