@@ -1,22 +1,54 @@
 import { CarFront, Car, Repeat, Fuel, Home, FileText } from "lucide-react";
 import Menu from "@/components/menu";
+import { client } from "@/lib/db/postgres";
 
-export default function DelegationsPage() {
+export default async function DelegationsPage() {
+  let activeDelegation = (
+    await client`
+      SELECT id FROM delegation 
+      WHERE status = 'active' 
+      LIMIT 1
+    `
+  )[0];
+
+  if (!activeDelegation) {
+    activeDelegation = (
+      await client`
+        INSERT INTO delegation (user_id) 
+        VALUES (1827463526172836) 
+        RETURNING id
+      `
+    )[0];
+    console.log("Created new delegation", activeDelegation);
+  }
+
+  // Add query to check for active trip
+  const activeTrip = (
+    await client`
+      SELECT id FROM trip 
+      WHERE delegation_id = ${activeDelegation.id} 
+      AND status = 'active' 
+      LIMIT 1
+    `
+  )[0];
+
   const menuItems = [
     {
-      name: "Add new trip",
+      name: "Start trip",
       icon: CarFront,
-      href: "/delegations/add-trip",
+      href: `/delegations/start-trip/${activeDelegation.id}`,
+      disabled: !!activeTrip,
     },
     {
-      name: "Finish trip",
+      name: "End trip",
       icon: Car,
-      href: "/delegations/finish-trip",
+      href: `/delegations/end-trip/${activeDelegation.id}`,
+      disabled: !activeTrip,
     },
     {
       name: "Delegations",
       icon: Repeat,
-      href: "/delegations/delegations_viewer",
+      href: "/delegations/list",
     },
     {
       name: "Fuel",
@@ -33,7 +65,8 @@ export default function DelegationsPage() {
 
   return (
     <div className="w-full max-w-3xl mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center mb-6">Delegations</h1>
+      <h1 className="text-3xl font-bold text-center mb-2">Delegations</h1>
+      <h2 className="text-xl text-center mb-4">Delegation ID: {activeDelegation.id}</h2>
       <Menu menuItems={menuItems} />
     </div>
   );

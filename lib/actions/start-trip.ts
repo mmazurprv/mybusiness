@@ -4,10 +4,10 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { client } from "../db/postgres";
 
-export default async function addTrip(formData: FormData) {
+export default async function startTrip(formData: FormData) {
   // const tripType = formData.get("trip-date")?.toString();
   //
-  const delegationId = formData.get("delegation-id")
+  const delegationId = Number(formData.get("delegation-id"))
 
   const tripDate = formData.get("trip-date")
   const tripTime = new Date().toLocaleTimeString("en-GB", { hour12: false });

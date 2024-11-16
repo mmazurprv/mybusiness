@@ -2,7 +2,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { notFound } from "next/navigation";
-import addTrip from "@/lib/actions/add-trip";
+import startTrip from "@/lib/actions/start-trip";
 
 export default async function TripPage({
   params,
@@ -20,7 +20,7 @@ export default async function TripPage({
     <div className="w-full max-w-md mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4 text-center">Add New Trip</h1>
 
-      <form action={addTrip} className="space-y-4">
+      <form action={startTrip} className="space-y-4">
         {/* Trip Type (Dynamic) */}
         <div>
           <h1
