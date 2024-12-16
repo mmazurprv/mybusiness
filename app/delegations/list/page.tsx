@@ -1,6 +1,6 @@
-import DelegationList from "@/components/delegation-list";
 import MonthNavigator from "@/components/month-navigator";
 import GenerateReportButton from "@/components/report-button";
+import TripsList from "@/components/trips-list";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
         <MonthNavigator />
         <GenerateReportButton />
       </div>
-      <DelegationList />
+      <TripsList />
     </main>
   );
 }

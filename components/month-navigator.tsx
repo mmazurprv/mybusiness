@@ -45,14 +45,14 @@ export default function MonthNavigator() {
 
   return (
     <Card>
-      <CardContent className="flex items-center justify-between gap-4 p-6">
+      <div className="flex items-center justify-between gap-4 p-2">
         <Button
           variant="outline"
           size="icon"
           onClick={decrementMonth}
           aria-label="Previous month"
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="h-2 w-2" />
         </Button>
         <div
           className="text-lg font-semibold"
@@ -67,9 +67,9 @@ export default function MonthNavigator() {
           onClick={incrementMonth}
           aria-label="Next month"
         >
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-2 w-2" />
         </Button>
-      </CardContent>
+      </div>
     </Card>
   );
 }
