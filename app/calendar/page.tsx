@@ -3,6 +3,7 @@ import { Trip } from "@/lib/types";
 import Menu from "@/components/menu";
 import { DateNavigatorComponent } from "@/components/date-navigator";
 import TripsList from "@/components/trips/trips-list";
+import { client } from "@/lib/db/postgres";
 
 // Fetch trips for the specified day
 async function getTripsForDay(date: string): Promise<Trip[]> {

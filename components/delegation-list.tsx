@@ -1,40 +1,7 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { client } from "@/lib/db/postgres";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
-const mockDelegations = [
-  {
-    id: 1,
-    description: "EU Summit",
-    startDate: "2023-06-01",
-    endDate: "2023-06-05",
-    status: "Upcoming",
-  },
-  {
-    id: 2,
-    description: "UN General Assembly",
-    startDate: "2023-06-15",
-    endDate: "2023-06-20",
-    status: "Confirmed",
-  },
-  {
-    id: 3,
-    description: "G7 Meeting",
-    startDate: "2023-07-01",
-    endDate: "2023-07-03",
-    status: "Completed",
-  },
-  {
-    id: 4,
-    description: "Climate Conference",
-    startDate: "2023-07-10",
-    endDate: "2023-07-15",
-    status: "Cancelled",
-  },
-];
+import Link from "next/link";
 
 type Delegation = {
   id: number;
@@ -44,19 +11,30 @@ type Delegation = {
   status: string;
 };
 
-export default function DelegationList() {
-  const searchParams = useSearchParams();
-  const monthParam = searchParams.get("month");
+// Fetch delegations for the given month
+async function getDelegationsForMonth(month: string): Promise<Delegation[]> {
+  const [year, monthNumber] = month.split("-");
+  const startDate = `${year}-${monthNumber}-01`;
+  console.log(startDate);
 
-  const filteredDelegations = mockDelegations.filter((delegation) => {
-    if (!monthParam) return true;
-    const [year, month] = monthParam.split("-");
-    const delegationMonth = new Date(delegation.startDate).getMonth() + 1;
-    const delegationYear = new Date(delegation.startDate).getFullYear();
-    return (
-      delegationMonth === parseInt(month) && delegationYear === parseInt(year)
-    );
-  });
+  const delegations = await client`
+    SELECT DISTINCT d.*
+    FROM delegation d
+    JOIN trip t ON d.id = t.delegation_id
+    WHERE t.end_time >= DATE_TRUNC('month', DATE '2024-10-01')
+      AND t.end_time < DATE_TRUNC('month', DATE '2024-10-01') + INTERVAL '1 month';
+  `;
+
+  return delegations as unknown as Delegation[];
+}
+
+export default async function DelegationList(props: {
+  searchParams?: { month?: string };
+}) {
+  const searchParams = props.searchParams || {};
+  const month = searchParams.month || new Date().toISOString().slice(0, 7); // Default to the current month in YYYY-MM format
+
+  const delegations = await getDelegationsForMonth(month);
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -75,13 +53,13 @@ export default function DelegationList() {
         <CardTitle>Delegations</CardTitle>
       </CardHeader>
       <CardContent>
-        {filteredDelegations.length === 0 ? (
+        {delegations.length === 0 ? (
           <p className="text-center text-gray-500">
             No delegations found for this month.
           </p>
         ) : (
           <ul className="space-y-4">
-            {filteredDelegations.map((delegation: Delegation) => (
+            {delegations.map((delegation) => (
               <li key={delegation.id}>
                 <Link href={`/delegation/${delegation.id}`} className="block">
                   <Card className="hover:bg-gray-50 transition-colors">
@@ -90,10 +68,6 @@ export default function DelegationList() {
                         <h3 className="font-semibold">
                           {delegation.description}
                         </h3>
-                        <p className="text-sm text-gray-500">
-                          {new Date(delegation.startDate).toLocaleDateString()}{" "}
-                          - {new Date(delegation.endDate).toLocaleDateString()}
-                        </p>
                       </div>
                       <Badge
                         className={`${getStatusColor(delegation.status)} text-white`}
