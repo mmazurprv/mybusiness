@@ -44,8 +44,8 @@ export default function MonthNavigator() {
   };
 
   return (
-    <Card className="w-full max-w-sm">
-      <CardContent className="flex items-center justify-between p-6">
+    <Card>
+      <CardContent className="flex items-center justify-between gap-4 p-6">
         <Button
           variant="outline"
           size="icon"

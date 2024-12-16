@@ -1,4 +1,11 @@
-import { CarFront, Car, Repeat, Fuel, Home, FileText } from "lucide-react";
+import {
+  CarFront,
+  Car,
+  ClipboardList,
+  Fuel,
+  Home,
+  FileText,
+} from "lucide-react";
 import Menu from "@/components/menu";
 import { client } from "@/lib/db/postgres";
 
@@ -47,7 +54,7 @@ export default async function DelegationsPage() {
     },
     {
       name: "Delegations",
-      icon: Repeat,
+      icon: ClipboardList,
       href: "/delegations/list",
     },
     {
@@ -55,18 +62,15 @@ export default async function DelegationsPage() {
       icon: Fuel,
       href: "/delegations/fuel",
     },
-    {
-      name: "Report",
-      icon: FileText,
-      href: "/delegations/report",
-    },
     { name: "Home", icon: Home, href: "/" },
   ];
 
   return (
     <div className="w-full max-w-3xl mx-auto p-4">
       <h1 className="text-3xl font-bold text-center mb-2">Delegations</h1>
-      <h2 className="text-xl text-center mb-4">Delegation ID: {activeDelegation.id}</h2>
+      <h2 className="text-xl text-center mb-4">
+        Delegation ID: {activeDelegation.id}
+      </h2>
       <Menu menuItems={menuItems} />
     </div>
   );

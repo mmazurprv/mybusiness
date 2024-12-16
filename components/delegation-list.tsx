@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-// This would typically come from an API or database
 const mockDelegations = [
   {
     id: 1,
@@ -61,21 +60,17 @@ export default function DelegationList() {
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
-      case "upcoming":
+      case "active":
         return "bg-blue-500";
-      case "confirmed":
-        return "bg-green-500";
       case "completed":
         return "bg-gray-500";
-      case "cancelled":
-        return "bg-red-500";
       default:
         return "bg-gray-500";
     }
   };
 
   return (
-    <Card className="w-full max-w-2xl">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>Delegations</CardTitle>
       </CardHeader>
