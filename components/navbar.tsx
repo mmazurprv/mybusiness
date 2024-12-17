@@ -24,14 +24,14 @@ export function Navbar() {
             </Link>
           </div>
           <div className="flex items-center">
-            <div className="flex gap-2 sm:gap-8">
+            <div className="flex gap-2">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-gray-700 hover:text-foreground hover:bg-slate-50 rounded-md text-sm font-medium transition-colors duration-150 ease-in-out flex items-center"
+                  className="text-gray-700 hover:text-foreground p-2 hover:bg-slate-50 rounded-md text-sm font-medium transition-colors duration-150 ease-in-out flex items-center"
                 >
-                  <link.icon className="h-5 w-5 mr-2" />
+                  <link.icon className="h-5 w-5 mr-0 sm:mr-2" />
                   <span className="hidden sm:inline">{link.label}</span>
                 </Link>
               ))}
