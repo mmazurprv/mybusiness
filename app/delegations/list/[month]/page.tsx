@@ -9,7 +9,7 @@ export default async function Page({
 }) {
   const month = (await params).month;
   return (
-    <main className="flex flex-col items-center justify-center gap-4 max-w-4xl mx-auto">
+    <main className="flex flex-col items-center justify-center gap-4 mx-auto">
       <div className="flex flex-row justify-between w-full items-end">
         <MonthNavigator currentMonth={month} />
         <GenerateReportButton />

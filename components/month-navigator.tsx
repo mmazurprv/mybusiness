@@ -61,11 +61,7 @@ export default function MonthNavigator({
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
-        <div
-          className="text-lg font-semibold"
-          aria-live="polite"
-          aria-atomic="true"
-        >
+        <div className="font-semibold" aria-live="polite" aria-atomic="true">
           {formatDate(currentDate)}
         </div>
         <Button
