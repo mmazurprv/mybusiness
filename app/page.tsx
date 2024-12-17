@@ -1,22 +1,12 @@
-import {
-  Car,
-  Warehouse,
-  Home,
-  Factory,
-  Calendar,
-  FileText,
-} from "lucide-react";
+import { Car, Warehouse, Factory, FileText } from "lucide-react";
 import Menu from "@/components/menu";
-import packageJson from "@/package.json";
 
 export default function HomePage() {
   const menuItems = [
     { name: "Delegations", icon: Car, href: "/delegations" },
-    { name: "Warehouse", icon: Warehouse, href: "/mind" },
-    { name: "Contractors", icon: Factory, href: "/mind" },
-    { name: "Documents", icon: FileText, href: "/mind" },
-    { name: "Calendar", icon: Calendar, href: "/calendar" },
-    { name: "Home", icon: Home, href: "/" },
+    { name: "Warehouse", icon: Warehouse, href: "/warehouse" },
+    { name: "Contractors", icon: Factory, href: "/contractors" },
+    { name: "Documents", icon: FileText, href: "/documents" },
   ];
 
   return (

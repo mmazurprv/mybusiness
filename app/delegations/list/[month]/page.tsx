@@ -12,7 +12,7 @@ export default async function Page({
     <main className="flex flex-col items-center justify-center gap-4 mx-auto">
       <div className="flex flex-row justify-between w-full items-end">
         <MonthNavigator currentMonth={month} />
-        <GenerateReportButton />
+        <GenerateReportButton month={month} />
       </div>
       <DelegationTripsList month={month} />
     </main>

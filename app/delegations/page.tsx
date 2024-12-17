@@ -1,15 +1,8 @@
-import {
-  CarFront,
-  Car,
-  ClipboardList,
-  Fuel,
-  Home,
-  FileText,
-} from "lucide-react";
+import { CarFront, Car, ClipboardList, Fuel } from "lucide-react";
 import Menu from "@/components/menu";
 import { client } from "@/lib/db/postgres";
 
-export default async function DelegationsPage() {
+export default async function Page() {
   let activeDelegation = (
     await client`
       SELECT id FROM delegation 
@@ -53,24 +46,23 @@ export default async function DelegationsPage() {
       disabled: !activeTrip,
     },
     {
-      name: "Delegations",
-      icon: ClipboardList,
-      href: "/delegations/list",
-    },
-    {
       name: "Fuel",
       icon: Fuel,
       href: "/delegations/fuel",
     },
-    { name: "Home", icon: Home, href: "/" },
+
+    {
+      name: "History",
+      icon: ClipboardList,
+      href: "/delegations/list",
+    },
   ];
 
   return (
     <div className="w-full max-w-3xl mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center mb-2">Delegations</h1>
-      <h2 className="text-xl text-center mb-4">
+      <h1 className="text-2xl text-center mb-6">
         Delegation ID: {activeDelegation.id}
-      </h2>
+      </h1>
       <Menu menuItems={menuItems} />
     </div>
   );
