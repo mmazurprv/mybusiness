@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -7,7 +9,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { mockGetDelegationsWithTrips } from "@/lib/actions/list-trips";
+import {
+  getDelegationsWithTrips,
+  mockGetDelegationsWithTrips,
+} from "@/lib/actions/list-trips";
 
 // Types for delegation and trip data
 interface Trip {
@@ -25,7 +30,7 @@ interface Delegation {
 }
 
 export default async function DelegationTripsList() {
-  const delegations: Delegation[] = await mockGetDelegationsWithTrips();
+  const delegations: Delegation[] = await getDelegationsWithTrips("2024-10");
 
   const formatDate = (dateString: string): string => {
     return new Date(dateString).toLocaleString();

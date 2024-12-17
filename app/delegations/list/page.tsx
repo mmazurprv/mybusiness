@@ -1,16 +1,11 @@
-import MonthNavigator from "@/components/month-navigator";
-import GenerateReportButton from "@/components/report-button";
-import TripsList from "@/components/trips-list";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <main className="flex flex-col items-center justify-center gap-4 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold">Delegations list</h1>
-      <div className="flex flex-row justify-between w-full items-end">
-        <MonthNavigator />
-        <GenerateReportButton />
-      </div>
-      <TripsList />
-    </main>
-  );
+export default function ListPage() {
+  const currentMonth = getCurrentMonth();
+  redirect(`/delegations/list/${currentMonth}`);
+}
+
+function getCurrentMonth() {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
 }

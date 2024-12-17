@@ -17,13 +17,13 @@ export async function getDelegationsWithTrips(month: string) {
     // Query to get all delegations
     const delegations = await client`
       SELECT id
-      FROM delegations
+      FROM delegation
     `;
 
     // Query to get all trips in the specified month
     const trips = await client`
       SELECT id, delegation_id, start_meter, end_meter, start_time, end_time, start_location, end_location
-      FROM trips
+      FROM trip
       WHERE end_time >= ${monthStart} AND end_time <= ${monthEnd}
     `;
 
