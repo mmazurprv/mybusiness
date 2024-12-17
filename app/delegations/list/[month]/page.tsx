@@ -1,6 +1,6 @@
 import MonthNavigator from "@/components/month-navigator";
 import GenerateReportButton from "@/components/report-button";
-import TripsList from "@/components/trips-list";
+import DelegationTripsList from "@/components/trips-list";
 
 export default async function Page({
   params,
@@ -14,7 +14,7 @@ export default async function Page({
         <MonthNavigator currentMonth={month} />
         <GenerateReportButton />
       </div>
-      {/* <TripsList /> */}
+      <DelegationTripsList month={month} />
     </main>
   );
 }

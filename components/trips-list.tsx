@@ -1,5 +1,3 @@
-"use client";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -9,28 +7,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  getDelegationsWithTrips,
-  mockGetDelegationsWithTrips,
-} from "@/lib/actions/list-trips";
+import { getDelegationsWithTrips } from "@/lib/actions/list-trips";
 
-// Types for delegation and trip data
-interface Trip {
+type Trip = {
   start_meter: number;
   end_meter: number;
   start_location: string;
   end_location: string;
   start_time: string;
   end_time: string;
-}
+};
 
-interface Delegation {
+type Delegation = {
   delegation_id: number;
   trips: Trip[];
-}
+};
 
-export default async function DelegationTripsList() {
-  const delegations: Delegation[] = await getDelegationsWithTrips("2024-10");
+export default async function DelegationTripsList({
+  month,
+}: {
+  month: string;
+}) {
+  // Fetch delegations server-side
+  const delegations: Delegation[] = await getDelegationsWithTrips(month);
 
   const formatDate = (dateString: string): string => {
     return new Date(dateString).toLocaleString();
@@ -39,46 +38,52 @@ export default async function DelegationTripsList() {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Delegations and Trips</CardTitle>
+        <CardTitle>Delegations and Trips for {month}</CardTitle>
       </CardHeader>
       <CardContent>
-        {delegations.map((delegation) => (
-          <div key={delegation.delegation_id} className="mb-8">
-            <h2 className="text-lg font-bold mb-4">
-              Delegation ID: {delegation.delegation_id}
-            </h2>
-            {delegation.trips.length === 0 ? (
-              <p className="text-center text-gray-500">
-                No trips found for this delegation.
-              </p>
-            ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Start Time</TableHead>
-                    <TableHead>End Time</TableHead>
-                    <TableHead>Start Location</TableHead>
-                    <TableHead>End Location</TableHead>
-                    <TableHead>Start Meter</TableHead>
-                    <TableHead>End Meter</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {delegation.trips.map((trip, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{formatDate(trip.start_time)}</TableCell>
-                      <TableCell>{formatDate(trip.end_time)}</TableCell>
-                      <TableCell>{trip.start_location}</TableCell>
-                      <TableCell>{trip.end_location}</TableCell>
-                      <TableCell>{trip.start_meter}</TableCell>
-                      <TableCell>{trip.end_meter}</TableCell>
+        {delegations.length === 0 ? (
+          <p className="text-center text-gray-500">
+            No delegations found for this month.
+          </p>
+        ) : (
+          delegations.map((delegation) => (
+            <div key={delegation.delegation_id} className="mb-8">
+              <h2 className="text-lg font-bold mb-4">
+                Delegation ID: {delegation.delegation_id}
+              </h2>
+              {delegation.trips.length === 0 ? (
+                <p className="text-center text-gray-500">
+                  No trips found for this delegation.
+                </p>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Start Time</TableHead>
+                      <TableHead>End Time</TableHead>
+                      <TableHead>Start Location</TableHead>
+                      <TableHead>End Location</TableHead>
+                      <TableHead>Start Meter</TableHead>
+                      <TableHead>End Meter</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </div>
-        ))}
+                  </TableHeader>
+                  <TableBody>
+                    {delegation.trips.map((trip, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{formatDate(trip.start_time)}</TableCell>
+                        <TableCell>{formatDate(trip.end_time)}</TableCell>
+                        <TableCell>{trip.start_location}</TableCell>
+                        <TableCell>{trip.end_location}</TableCell>
+                        <TableCell>{trip.start_meter}</TableCell>
+                        <TableCell>{trip.end_meter}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </div>
+          ))
+        )}
       </CardContent>
     </Card>
   );
