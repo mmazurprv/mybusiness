@@ -43,11 +43,15 @@ export async function getDelegationsWithTrips(month: string) {
       return acc;
     }, {});
 
-    // Combine delegations with their trips
-    const result = delegations.map((delegation) => ({
-      delegation_id: delegation.id,
-      trips: tripsByDelegation[delegation.id] || [],
-    }));
+    // Combine delegations with their trips and filter out empty ones
+    const result = delegations
+      .map((delegation) => ({
+        delegation_id: delegation.id,
+        trips: tripsByDelegation[delegation.id] || [],
+      }))
+      .filter((delegation) => delegation.trips.length > 0); // Remove delegations with no trips
+
+    console.debug(result);
 
     return result;
   } catch (error) {
