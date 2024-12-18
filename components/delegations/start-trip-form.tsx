@@ -1,10 +1,10 @@
 import startTrip from "@/lib/actions/start-trip";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import LocationInput from "./location-input";
 import DateInput from "./date-input";
 import TimeInput from "./time-input";
+import MeterInput from "./meter-input";
 
 export default function StartTripForm({
   delegationId,
@@ -31,7 +31,7 @@ export default function StartTripForm({
       {/* Start Meter */}
       <div>
         <Label className="text-gray-700 font-semibold mb-1">Start Meter:</Label>
-        <Input type="number" name="start-meter" className="w-full" />
+        <MeterInput name="start-meter" />
       </div>
 
       {/* Start Location */}

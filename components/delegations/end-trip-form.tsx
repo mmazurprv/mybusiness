@@ -5,6 +5,7 @@ import LocationInput from "./location-input";
 import DateInput from "./date-input";
 import TimeInput from "./time-input";
 import endTrip from "@/lib/actions/end-trip";
+import MeterInput from "./meter-input";
 
 export default function EndTripForm({
   delegationId,
@@ -31,7 +32,7 @@ export default function EndTripForm({
       {/* End Meter */}
       <div>
         <Label className="text-gray-700 font-semibold mb-1">End Meter:</Label>
-        <Input type="number" name="end-meter" className="w-full" />
+        <MeterInput name="end-meter" />
       </div>
 
       {/* End Location */}
