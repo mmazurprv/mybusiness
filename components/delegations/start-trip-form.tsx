@@ -2,6 +2,7 @@ import startTrip from "@/lib/actions/start-trip";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import LocationInput from "./location-input";
 
 export default function StartTripForm({
   delegationId,
@@ -54,7 +55,7 @@ export default function StartTripForm({
         <Label className="text-gray-700 font-semibold mb-1">
           Start Location:
         </Label>
-        <Input type="text" name="start-location" className="w-full" />
+        <LocationInput name="start-location" />
       </div>
 
       {/* Submit Button */}
