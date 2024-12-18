@@ -3,20 +3,14 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import LocationInput from "./location-input";
+import DateInput from "./date-input";
+import TimeInput from "./time-input";
 
 export default function StartTripForm({
   delegationId,
 }: {
   delegationId: number;
 }) {
-  // Get current date and time in the appropriate format
-  const currentDate = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
-  const currentTime = new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  }); // HH:mm
-
   return (
     <form action={startTrip} className="space-y-4">
       {/* Hidden Input for delegationId */}
@@ -25,23 +19,13 @@ export default function StartTripForm({
       {/* Start Date */}
       <div>
         <Label className="text-gray-700 font-semibold mb-1">Start Date:</Label>
-        <Input
-          type="date"
-          name="start-date"
-          className="w-full"
-          defaultValue={currentDate}
-        />
+        <DateInput name="start-date" />
       </div>
 
       {/* Start Time */}
       <div>
         <Label className="text-gray-700 font-semibold mb-1">Start Time:</Label>
-        <Input
-          type="time"
-          name="start-time"
-          className="w-full"
-          defaultValue={currentTime}
-        />
+        <TimeInput name="start-time" />
       </div>
 
       {/* Start Meter */}
