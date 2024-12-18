@@ -29,7 +29,7 @@ export async function getLocation(): Promise<string> {
 
           // Handle edge cases
           if (cityName === "Wola Grzymalina-Kolonia") {
-            cityName = "Wola Grzymalina Kolonia";
+            cityName = "Kleszczów";
           }
 
           resolve(cityName);
