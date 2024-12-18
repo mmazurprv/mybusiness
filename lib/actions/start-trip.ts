@@ -7,27 +7,20 @@ import { client } from "../db/postgres";
 export default async function startTrip(formData: FormData) {
   // const tripType = formData.get("trip-date")?.toString();
   //
-  const delegationId = Number(formData.get("delegation-id"))
+  const delegationId = Number(formData.get("delegation-id"));
 
-  const tripDate = formData.get("trip-date")
+  const tripDate = formData.get("trip-date");
   const tripTime = new Date().toLocaleTimeString("en-GB", { hour12: false });
+  const startMeter = formData.get("start-meter");
+  const startLocation = formData.get("start-location");
 
   // to implement in the form and get from formdata, now using hard coded value
-  const carId = 1 // trafic
-  const startMeter = 10
-  const startLocation = "Kleszczów"
-
-  if (!tripDate) {
-    console.error("Trip date is missing.");
-    return;
-  }
+  const carId = 1; // trafic
 
   // Combine tripDate and tripTime into a single timestamp string
   const startTime = `${tripDate} ${tripTime}`;
 
-  console.log(
-    `Inserting new trip record `,
-  );
+  console.log(`Inserting new trip record `);
 
   try {
     await client`INSERT INTO trip (
@@ -47,7 +40,7 @@ export default async function startTrip(formData: FormData) {
     )`;
   } catch (error) {
     console.error("Error inserting trip:", error);
-    return
+    return;
   }
 
   revalidatePath("/delegations");

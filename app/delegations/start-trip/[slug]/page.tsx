@@ -18,41 +18,44 @@ export default async function TripPage({
 
   return (
     <div className="w-full max-w-md mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4 text-center">Add New Trip</h1>
+      <h1 className="text-2xl font-bold mb-8 text-center">
+        Start New Trip for Delegation: {delegationId}
+      </h1>
 
       <form action={startTrip} className="space-y-4">
-        {/* Trip Type (Dynamic) */}
-        <div>
-          <h1
-            className="text-gray-700 font-semibold mb-1"
-          >
-            {"Delegation id: " + delegationId}
-          </h1>
-        </div>
-
         {/* Hidden Input for delegationId */}
         <input type="hidden" name="delegation-id" value={delegationId} />
 
-        {/* Trip Date */}
+        {/* Start Date */}
         <div>
-          <Label
-            className="text-gray-700 font-semibold mb-1"
-            htmlFor="tripDate"
-          >
-            Trip Date:
+          <Label className="text-gray-700 font-semibold mb-1">
+            Start Date:
           </Label>
           <Input type="date" name="trip-date" className="w-full" />
         </div>
 
-        {/* Start Trip Time */}
+        {/* Start Time */}
         <div>
-          <Label
-            className="text-gray-700 font-semibold mb-1"
-            htmlFor="startTripTime"
-          >
-            Start Trip Time:
+          <Label className="text-gray-700 font-semibold mb-1">
+            Start Time:
           </Label>
           <Input type="time" name="start-trip-time" className="w-full" />
+        </div>
+
+        {/* Start Meter */}
+        <div>
+          <Label className="text-gray-700 font-semibold mb-1">
+            Start Meter:
+          </Label>
+          <Input type="number" name="start-meter" className="w-full" />
+        </div>
+
+        {/* Start Location */}
+        <div>
+          <Label className="text-gray-700 font-semibold mb-1">
+            Start Location:
+          </Label>
+          <Input type="text" name="start-location" className="w-full" />
         </div>
 
         {/* Submit Button */}
