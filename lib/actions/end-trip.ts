@@ -23,6 +23,7 @@ export default async function endTrip(formData: FormData) {
   const endTime = `${tripDate} ${tripTime}:00`;
 
   try {
+    // Update trip details
     await client`
       UPDATE trip
       SET
@@ -35,6 +36,15 @@ export default async function endTrip(formData: FormData) {
         delegation_id = ${delegationId}
         AND status = 'active'
     `;
+
+    // If the end location matches "Wola Grzymalina Kolonia," update delegation status
+    if (endLocation === "Wola Grzymalina Kolonia") {
+      await client`
+        UPDATE delegation
+        SET status = 'complete'
+        WHERE id = ${delegationId}
+      `;
+    }
   } catch (error) {
     console.error("Failed to end trip:", error);
     return;
