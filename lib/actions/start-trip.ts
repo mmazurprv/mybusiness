@@ -5,22 +5,21 @@ import { revalidatePath } from "next/cache";
 import { client } from "../db/postgres";
 
 export default async function startTrip(formData: FormData) {
-  // const tripType = formData.get("trip-date")?.toString();
-  //
+  // Parse input data
   const delegationId = Number(formData.get("delegation-id"));
-
-  const tripDate = formData.get("trip-date");
-  const tripTime = new Date().toLocaleTimeString("en-GB", { hour12: false });
+  const tripDate = formData.get("start-date");
+  const tripTime = formData.get("start-time");
   const startMeter = formData.get("start-meter");
   const startLocation = formData.get("start-location");
 
-  // to implement in the form and get from formdata, now using hard coded value
-  const carId = 1; // trafic
+  // Use a hardcoded carId for now
+  const carId = 1; // Traffic
 
-  // Combine tripDate and tripTime into a single timestamp string
-  const startTime = `${tripDate} ${tripTime}`;
+  // Combine tripDate and tripTime into a single local timestamp
+  const startTime = `${tripDate} ${tripTime}:00`;
 
-  console.log(`Inserting new trip record `);
+  console.debug(`Inserting new trip record`);
+  console.debug(startTime);
 
   try {
     await client`INSERT INTO trip (
