@@ -6,8 +6,14 @@ import { Button } from "../ui/button";
 import { Loader, MapPin } from "lucide-react";
 import { getLocation } from "@/lib/actions/geolocation";
 
-export default function LocationInput({ name }: { name: string }) {
-  const [location, setLocation] = useState("");
+export default function LocationInput({
+  name,
+  defaultValue = "",
+}: {
+  name: string;
+  defaultValue?: string;
+}) {
+  const [location, setLocation] = useState(defaultValue);
   const [isLocating, setIsLocating] = useState(false);
 
   const handleLocationClick = async () => {
