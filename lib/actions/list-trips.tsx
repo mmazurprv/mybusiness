@@ -10,6 +10,7 @@ import {
 
 // Trip type with calculated fields
 export type Trip = {
+  trip_id: number; // Added trip_id
   start_meter: number;
   end_meter: number;
   start_location: string;
@@ -39,17 +40,56 @@ export async function getDelegationsWithTrips(
   const monthEnd = endOfMonth(monthStart);
 
   try {
-    // Query to get all delegations
+    // Query to get delegations whose last trip ends in the given month
     const delegations = await client`
-      SELECT id
-      FROM delegation
+      WITH LastTrips AS (
+        SELECT 
+          delegation_id,
+          MAX(end_time) AS last_trip_end_time
+        FROM 
+          trip
+        GROUP BY 
+          delegation_id
+      )
+      SELECT 
+        d.id AS delegation_id
+      FROM 
+        delegation d
+      JOIN 
+        LastTrips lt
+      ON 
+        d.id = lt.delegation_id
+      WHERE 
+        lt.last_trip_end_time >= ${monthStart} AND lt.last_trip_end_time <= ${monthEnd}
     `;
 
-    // Query to get all trips in the specified month
+    // Extract delegation IDs
+    const delegationIds = delegations.map(
+      (delegation) => delegation.delegation_id,
+    );
+
+    // If no delegations are found, return an empty array
+    if (delegationIds.length === 0) {
+      return [];
+    }
+
+    // Query to get all trips for the filtered delegations
     const trips = await client`
-      SELECT id, delegation_id, start_meter, end_meter, start_time, end_time, start_location, end_location
-      FROM trip
-      WHERE end_time >= ${monthStart} AND end_time <= ${monthEnd}
+      SELECT 
+        id AS trip_id,
+        delegation_id,
+        start_meter,
+        end_meter,
+        start_time,
+        end_time,
+        start_location,
+        end_location
+      FROM 
+        trip
+      WHERE 
+        delegation_id = ANY(${delegationIds})
+      ORDER BY 
+        start_time; -- Order trips by start_time
     `;
 
     // Group trips by delegation_id and calculate additional metrics
@@ -72,6 +112,7 @@ export async function getDelegationsWithTrips(
           totalHours > 0 ? (distance / totalHours).toFixed(2) : "N/A";
 
         acc[trip.delegation_id].push({
+          trip_id: trip.trip_id,
           start_meter: trip.start_meter,
           end_meter: trip.end_meter,
           start_location: trip.start_location,
@@ -88,12 +129,10 @@ export async function getDelegationsWithTrips(
     );
 
     // Combine delegations with their trips and filter out empty ones
-    const result: Delegation[] = delegations
-      .map((delegation) => ({
-        delegation_id: delegation.id,
-        trips: tripsByDelegation[delegation.id] || [],
-      }))
-      .filter((delegation) => delegation.trips.length > 0); // Remove delegations with no trips
+    const result: Delegation[] = delegations.map((delegation) => ({
+      delegation_id: delegation.delegation_id,
+      trips: tripsByDelegation[delegation.delegation_id] || [],
+    }));
 
     return result;
   } catch (error) {
