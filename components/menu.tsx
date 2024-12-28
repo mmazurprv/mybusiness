@@ -29,13 +29,14 @@ export default function Menu({ menuItems }: { menuItems: MenuItem[] }) {
             <CardContent className="p-6 flex flex-col items-center justify-center text-center">
               <item.icon
                 size={48}
+                strokeWidth={1.5}
                 className={`mb-2 ${
                   item.disabled
                     ? "text-gray-400"
                     : "text-primary group-hover:text-primary/80 transition-colors"
                 }`}
               />
-              <span className="text-md font-semibold">{item.name}</span>
+              <span className="text-md">{item.name}</span>
             </CardContent>
           </Card>
         </Link>
