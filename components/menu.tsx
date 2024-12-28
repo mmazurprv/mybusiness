@@ -11,7 +11,7 @@ type MenuItem = {
 
 export default function Menu({ menuItems }: { menuItems: MenuItem[] }) {
   return (
-    <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="w-full flex flex-wrap gap-4 justify-center">
       {menuItems.map((item) => (
         <Link
           key={item.name}
@@ -20,7 +20,7 @@ export default function Menu({ menuItems }: { menuItems: MenuItem[] }) {
           className={item.disabled ? "pointer-events-none" : ""}
         >
           <Card
-            className={`group transition-colors cursor-pointer ${
+            className={`group transition-colors cursor-pointer flex-1 min-w-40 ${
               item.disabled
                 ? "opacity-50 bg-gray-100 cursor-not-allowed"
                 : "hover:bg-primary/5"
