@@ -30,10 +30,7 @@ export default async function DelegationTripsList({
 
   return (
     <Card className="w-full">
-      <CardHeader>
-        <CardTitle>Delegations and Trips for {month}</CardTitle>
-      </CardHeader>
-      <CardContent>
+      <CardContent className="mt-6">
         {delegations.length === 0 ? (
           <p className="text-center text-gray-500">
             No delegations found for this month.
