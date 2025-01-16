@@ -17,11 +17,15 @@ type Store = {
 
 // Function to fetch stores from the database
 async function fetchStores(): Promise<Store[]> {
-  const stores = await client`
-    SELECT id, name 
-    FROM store
-  `;
-  return stores as unknown as Store[];
+  // const stores = await client`
+  //   SELECT id, name
+  //   FROM store
+  // `;
+  // return stores as unknown as Store[];
+  return [
+    { id: "1", name: "Attic" },
+    { id: "2", name: "Office" },
+  ];
 }
 
 // StoreInput component to dynamically render store options

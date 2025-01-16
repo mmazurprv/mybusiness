@@ -17,11 +17,19 @@ type Category = {
 
 // Function to fetch stores from the database
 async function fetchCategories(): Promise<Category[]> {
-  const categories = await client`
-    SELECT id, name 
-    FROM item_category
-  `;
-  return categories as unknown as Category[];
+  // const categories = await client`
+  //   SELECT id, name
+  //   FROM item_category
+  // `;
+  // return categories as unknown as Category[];
+  return [
+    { id: "1", name: "Electronics" },
+    { id: "2", name: "Furniture" },
+    { id: "3", name: "Books" },
+    { id: "4", name: "Clothing" },
+    { id: "5", name: "Toys" },
+    { id: "6", name: "Groceries" },
+  ];
 }
 
 // CategorySelect component to dynamically render store options

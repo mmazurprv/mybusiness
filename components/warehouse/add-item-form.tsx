@@ -26,7 +26,7 @@ export default function AddItemForm() {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <BrandInput name="end-location" />
+          <BrandInput name="brand" />
         </div>
         <div>
           <QuantityInput name="quantity" />
