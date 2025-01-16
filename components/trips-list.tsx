@@ -48,6 +48,8 @@ export default async function DelegationTripsList({
                     <TableHead>End Time</TableHead>
                     <TableHead>Start Location</TableHead>
                     <TableHead>End Location</TableHead>
+                    <TableHead>Start Meter</TableHead>
+                    <TableHead>End Meter</TableHead>
                     <TableHead>Distance</TableHead>
                     <TableHead>Total Time</TableHead>
                     <TableHead>Average Speed</TableHead>
@@ -60,6 +62,8 @@ export default async function DelegationTripsList({
                       <TableCell>{formatDate(trip.end_time)}</TableCell>
                       <TableCell>{trip.start_location}</TableCell>
                       <TableCell>{trip.end_location}</TableCell>
+                      <TableCell>{trip.start_meter}</TableCell>
+                      <TableCell>{trip.end_meter}</TableCell>
                       <TableCell>
                         {trip.end_meter - trip.start_meter} km
                       </TableCell>
