@@ -14,6 +14,7 @@ export type Item = {
   warranty_end_date: string; // Ensure it's a string
   invoice_number: string;
   invoice_supplier_code: string;
+  unit_price: number;
   memo: string;
 };
 
@@ -38,6 +39,7 @@ export async function getAllItems(): Promise<Item[]> {
         i.warranty_end_date, 
         i.invoice_number, 
         i.invoice_supplier_code, 
+        i.unit_price,
         i.memo
       FROM physical_item i
       LEFT JOIN item_category c ON i.category_id = c.id
