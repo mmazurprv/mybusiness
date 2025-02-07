@@ -38,7 +38,7 @@ export async function getAllItems(): Promise<Item[]> {
         i.warranty_start_date,
         i.warranty_end_date,
         i.invoice_number,
-        sup.supplier_full_name AS "supplier_name",
+        sup.short_name AS "supplier_name",
         i.unit_price,
         i.memo
       FROM physical_item i
