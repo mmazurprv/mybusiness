@@ -22,13 +22,7 @@ export default async function Page() {
             <TableHeader>
               <TableRow>
                 <TableHead>Title</TableHead>
-                <TableHead>Barcode</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead>Store</TableHead>
-                <TableHead>Brand</TableHead>
                 <TableHead>Quantity</TableHead>
-                <TableHead>Warranty Start</TableHead>
-                <TableHead>Warranty End</TableHead>
                 <TableHead>Invoice No.</TableHead>
                 <TableHead>Supplier Code</TableHead>
                 <TableHead>Memo</TableHead>
@@ -38,13 +32,7 @@ export default async function Page() {
               {items.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell>{item.title}</TableCell>
-                  <TableCell>{item.barcode}</TableCell>
-                  <TableCell>{item.category}</TableCell>
-                  <TableCell>{item.store}</TableCell>
-                  <TableCell>{item.brand}</TableCell>
                   <TableCell>{item.quantity}</TableCell>
-                  <TableCell>{item.warranty_start_date}</TableCell>
-                  <TableCell>{item.warranty_end_date}</TableCell>
                   <TableCell>{item.invoice_number}</TableCell>
                   <TableCell>{item.invoice_supplier_code}</TableCell>
                   <TableCell>{item.memo}</TableCell>
