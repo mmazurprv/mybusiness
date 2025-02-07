@@ -57,7 +57,7 @@ export default async function Page() {
                   <TableHead>Title</TableHead>
                   <TableHead>Quantity</TableHead>
                   <TableHead>Invoice No.</TableHead>
-                  <TableHead>Supplier Code</TableHead>
+                  <TableHead>Supplier Name</TableHead>
                   <TableHead>Unit price</TableHead>
                   <TableHead>Total price</TableHead>
                   <TableHead>Memo</TableHead>
@@ -69,7 +69,7 @@ export default async function Page() {
                     <TableCell>{item.title}</TableCell>
                     <TableCell>{item.quantity}</TableCell>
                     <TableCell>{item.invoice_number}</TableCell>
-                    <TableCell>{item.invoice_supplier_code}</TableCell>
+                    <TableCell>{item.supplier_name || "Unknown"}</TableCell>
                     <TableCell>{item.unit_price}</TableCell>
                     <TableCell>{item.unit_price * item.quantity}</TableCell>
                     <TableCell>{item.memo}</TableCell>

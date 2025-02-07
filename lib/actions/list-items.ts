@@ -12,8 +12,8 @@ export type Item = {
   quantity: number;
   warranty_start_date: string; // Ensure it's a string
   warranty_end_date: string; // Ensure it's a string
+  supplier_name: string;
   invoice_number: string;
-  invoice_supplier_code: string;
   unit_price: number;
   memo: string;
 };
@@ -28,22 +28,23 @@ export async function getAllItems(): Promise<Item[]> {
   try {
     const items = await client`
       SELECT 
-        i.id, 
-        i.title, 
-        i.barcode, 
-        c.name AS category, 
-        s.name AS store, 
-        i.brand, 
-        i.quantity, 
-        i.warranty_start_date, 
-        i.warranty_end_date, 
-        i.invoice_number, 
-        i.invoice_supplier_code, 
+        i.id,
+        i.title,
+        i.barcode,
+        c.name AS category,
+        s.name AS store,
+        i.brand,
+        i.quantity,
+        i.warranty_start_date,
+        i.warranty_end_date,
+        i.invoice_number,
+        sup.supplier_full_name AS "supplier_name",
         i.unit_price,
         i.memo
       FROM physical_item i
       LEFT JOIN item_category c ON i.category_id = c.id
       LEFT JOIN store s ON i.store_id = s.id
+      LEFT JOIN supplier sup ON i.supplier_id = sup.id
       ORDER BY i.id DESC
     `;
 
