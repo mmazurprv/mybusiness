@@ -215,8 +215,9 @@ CREATE TABLE public.physical_item (
     warranty_start_date date,
     warranty_end_date date,
     invoice_number text,
-    invoice_supplier_code text NOT NULL,
-    memo text
+    memo text,
+    unit_price numeric(10,2) DEFAULT 0.00,
+    supplier_id integer
 );
 
 
@@ -277,6 +278,48 @@ ALTER SEQUENCE public.store_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.store_id_seq OWNED BY public.store.id;
+
+
+--
+-- Name: supplier; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.supplier (
+    id integer NOT NULL,
+    full_name text NOT NULL,
+    address_street text,
+    address_code text,
+    address_city text,
+    address_country text,
+    phone text,
+    email text,
+    nip text,
+    short_name text
+);
+
+
+ALTER TABLE public.supplier OWNER TO postgres;
+
+--
+-- Name: supplier_supplier_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.supplier_supplier_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.supplier_supplier_id_seq OWNER TO postgres;
+
+--
+-- Name: supplier_supplier_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.supplier_supplier_id_seq OWNED BY public.supplier.id;
 
 
 --
@@ -391,6 +434,13 @@ ALTER TABLE ONLY public.store ALTER COLUMN id SET DEFAULT nextval('public.store_
 
 
 --
+-- Name: supplier id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.supplier ALTER COLUMN id SET DEFAULT nextval('public.supplier_supplier_id_seq'::regclass);
+
+
+--
 -- Name: trip id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -431,7 +481,10 @@ COPY public.delegation (id, user_id, description, diet_count, status) FROM stdin
 9	1827463526172836	\N	\N	complete
 10	1827463526172836	\N	\N	complete
 11	1827463526172836	\N	\N	complete
-12	1827463526172836	\N	\N	active
+12	1827463526172836	\N	\N	complete
+13	1827463526172836	\N	\N	complete
+14	1827463526172836	\N	\N	complete
+15	1827463526172836	\N	\N	active
 \.
 
 
@@ -441,11 +494,11 @@ COPY public.delegation (id, user_id, description, diet_count, status) FROM stdin
 
 COPY public.item_category (id, name) FROM stdin;
 1	Electronics
-2	Furniture
-3	Books
-4	Clothing
-5	Toys
-6	Groceries
+2	Metal parts
+3	Electric parts
+4	Computer parts
+5	Materials
+6	Others
 \.
 
 
@@ -462,7 +515,24 @@ COPY public.organization (id, name) FROM stdin;
 -- Data for Name: physical_item; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.physical_item (id, store_id, container_id, category_id, organization_id, title, brand, barcode, quantity, warranty_start_date, warranty_end_date, invoice_number, invoice_supplier_code, memo) FROM stdin;
+COPY public.physical_item (id, store_id, container_id, category_id, organization_id, title, brand, barcode, quantity, warranty_start_date, warranty_end_date, invoice_number, memo, unit_price, supplier_id) FROM stdin;
+10003	2	\N	1	1	Wyłącznik czujnik krańcowy mini z rolką - WK625 - 5szt.	2	\N	2	2024-09-17	\N	FV/2148/09/2024	\N	7.72	1002
+10004	2	\N	1	1	Mocowanie stalowe typu L do silnika krokowego NEMA 17	2	\N	4	2024-09-17	\N	FV/2148/09/2024	\N	5.61	1002
+10005	2	\N	1	1	Silnik krokowy JK42HS40-0504 200 kroków/obr 12V/0,5A/0,43Nm	2	\N	2	2024-09-17	\N	FV/2148/09/2024	\N	56.10	1002
+10006	2	\N	1	1	Łącznik elastyczny - średnica 5 i 5mm stalowe typu L do silnika krokowego NEMA 17	2	\N	1	2024-09-17	\N	FV/2148/09/2024	\N	6.42	1002
+10008	1	\N	1	1	Śruba M4x40 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	12.08	1001
+10009	1	\N	1	1	Śruba M3x35 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	8.18	1001
+10010	1	\N	1	1	Śruba M3x40 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	7.80	1001
+10011	1	\N	1	1	Śruba M5x8 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	14.87	1001
+10012	1	\N	1	1	Śruba M6x10 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	7.13	1001
+10013	1	\N	1	1	Pręt M2x1000	1	\N	1	2024-09-18	\N	10872/2024	\N	10.40	1001
+10014	1	\N	1	1	Pręt M2.5x1000	1	\N	1	2024-09-18	\N	10872/2024	\N	7.13	1001
+10007	1	\N	1	1	Śruba M4x35 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	7.43	1001
+10002	2	\N	1	1	Sterownik silnika krokowego HY-DIV268N-5A w obudowie - 48V/5A	1	\N	1	2024-09-09	\N	FV/951/09/2024	\N	80.49	1002
+10001	1	\N	2	1	Klatka 500x400x200	1	\N	1	2024-09-11	\N	FA/3/09/2024	\N	700.00	1003
+10015	1	\N	1	1	Przewody do silnika krokowego NEMA17	1	5904384705498	8	2024-08-19	\N	RC/1103/PL/2408	\N	3.02	\N
+10016	1	\N	1	1	Silnik krokowy NEMA17 KS42STH34-1504A - 1,5A - 34mm	1	5904384704910	4	2024-08-19	\N	RC/1103/PL/2408	\N	19.68	\N
+10017	1	\N	1	1	Korkowa podkładka amortyzująca do silnika krokowego NEMA17	1	5904384726967	2	2024-08-19	\N	RC/1103/PL/2408	\N	1.93	\N
 \.
 
 
@@ -471,8 +541,21 @@ COPY public.physical_item (id, store_id, container_id, category_id, organization
 --
 
 COPY public.store (id, name, location) FROM stdin;
-1	Attic	Kleszczów
 2	Office	Kleszczów
+1	Store	Kleszczów
+\.
+
+
+--
+-- Data for Name: supplier; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.supplier (id, full_name, address_street, address_code, address_city, address_country, phone, email, nip, short_name) FROM stdin;
+1001	PHU KASTAL Katarzyna Abrahamowicz 	Modlińska 328 X	03-152	Warszawa	Polska	\N	\N	5241161055	KASTAL
+1002	BOTLAND B. DERKACZ SPÓŁKA KOMANDYTOWA	Gola 25A	63-640	Bralin	Polska	\N	\N	6192023594	BOTLAND
+1003	ZM PART Zbigniew Martela	Św. Rozalii 13	97-500	Radomsko	Polska	\N	\N	7721194044	ZM PART
+1004	Firma Leda Gurdek Bożena	Nidecka 17	34-122	Wieprz	Polska	\N	\N	5511402765	ABC-RC
+1005	PIVEXIN	\N	\N	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -486,15 +569,18 @@ COPY public.trip (id, delegation_id, start_time, end_time, start_location, end_l
 11	5	2024-10-18 15:01:00+02	2024-10-18 21:10:00+02	Poznań	Września	Serwis Września	2950	3000	1	1827463526172836	2024-10-17 18:40:02.229747	completed
 10	5	2024-10-17 20:10:00+02	2024-10-17 23:55:00+02	Wola Grzymalina Kolonia	Poznań	Serwis Poznań	2650	2950	1	1827463526172836	2024-10-17 18:40:02.229747	completed
 9	4	2024-10-09 15:01:00+02	2024-10-09 21:10:00+02	Lublin	Wola Grzymalina Kolonia	powrót	2300	2650	1	1827463526172836	2024-10-17 18:40:02.229747	completed
+31	13	2025-01-17 07:55:00+01	2025-01-17 14:01:00+01	Wola Grzymalina Kolonia	Lębork	Instalacja NFM	5938	6414	1	1827463526172836	2025-01-18 00:27:45.469374	completed
 24	9	2024-12-28 18:29:00+01	2024-12-28 19:03:00+01	Radomsko	Wola Grzymalina Kolonia	\N	5169	5205	1	1827463526172836	2024-12-28 18:30:41.428003	completed
 23	9	2024-12-28 14:19:00+01	2024-12-28 14:58:00+01	Wola Grzymalina Kolonia	Radomsko	\N	5138	5169	1	1827463526172836	2024-12-28 18:29:16.846423	completed
 20	8	2024-12-18 17:20:00+01	2024-12-18 18:20:00+01	Radom	Huta Żabiowska	\N	4861	4938	1	1827463526172836	2024-12-19 19:21:16.059995	completed
+32	13	2025-01-18 12:45:00+01	2025-01-18 13:45:00+01	Lębork	Gdańsk	Serwis Sąd Piekarnicza	6414	6511	1	1827463526172836	2025-01-18 20:45:18.380442	completed
 22	8	2024-12-19 12:39:00+01	2024-12-19 14:30:00+01	Pruszków	Wola Grzymalina Kolonia	\N	4972	5138	1	1827463526172836	2024-12-19 19:23:41.14364	completed
 21	8	2024-12-19 10:15:00+01	2024-12-19 10:45:00+01	Huta Żabiowska	Pruszków	\N	4938	4972	1	1827463526172836	2024-12-19 19:22:59.328488	completed
 1	1	2024-07-19 17:44:00+02	2024-07-19 19:45:00+02	Łódź	Wola Grzymalina Kolonia	\N	0	100	1	1827463526172836	2024-08-22 10:47:57.711147	completed
 2	2	2024-08-07 15:15:00+02	2024-08-07 17:15:00+02	Wola Grzymalina Kolonia	Warszawa	\N	100	270	1	1827463526172836	2024-08-22 10:52:22.56868	completed
 5	2	2024-08-10 14:20:00+02	2024-08-10 19:35:00+02	Rzeszów	Wola Grzymalina Kolonia	\N	645	1024	1	1827463526172836	2024-08-22 10:57:19.034029	completed
 6	3	2024-09-25 17:39:00+02	2024-09-25 23:55:00+02	Wola Grzymalina Kolonia	Lębork	Spotkanie NFM, prezentacja rozwiązania	1024	1500	1	1827463526172836	2024-10-17 18:38:14.149838	completed
+33	13	2025-01-18 15:30:00+01	2025-01-18 20:51:00+01	Gdańsk	Wola Grzymalina Kolonia	\N	6511	6915	1	1827463526172836	2025-01-18 20:51:28.934445	completed
 18	7	2024-12-17 18:01:00+01	2024-12-17 20:01:00+01	Radom	Wola Grzymalina Kolonia	-	4503	4709	1	1827463526172836	2024-10-17 18:40:02.229	completed
 17	7	2024-12-17 13:01:00+01	2024-12-17 15:32:00+01	Wola Grzymalina Kolonia	Radom	-	4338	4503	1	1827463526172836	2024-10-17 18:40:02.229	completed
 16	6	2024-12-14 23:23:00+01	2024-12-15 02:01:00+01	Chrzanów	Wola Grzymalina Kolonia	-	4174	4338	1	1827463526172836	2024-10-17 18:40:02.229	completed
@@ -509,6 +595,10 @@ COPY public.trip (id, delegation_id, start_time, end_time, start_location, end_l
 28	11	2025-01-03 18:21:00+01	2025-01-03 22:21:00+01	Radom	Wola Grzymalina Kolonia	\N	5398	5550	1	1827463526172836	2025-01-03 22:21:57.282526	completed
 13	6	2024-12-14 07:01:00+01	2024-12-14 09:30:00+01	Wola Grzymalina Kolonia	Chrzanów	-	3200	3308	1	1827463526172836	2024-10-17 18:40:02.229747	completed
 12	5	2024-10-18 15:01:00+02	2024-10-18 21:10:00+02	Września 	Wola Grzymalina Kolonia	Serwis Września	3000	3200	1	1827463526172836	2024-10-17 18:40:02.229747	completed
+29	12	2025-01-16 11:29:00+01	2025-01-16 14:52:00+01	Wola Grzymalina Kolonia	Warszawa 	\N	5550	5744	1	1827463526172836	2025-01-16 14:53:43.459573	completed
+30	12	2025-01-16 19:46:00+01	2025-01-16 21:24:00+01	Warszawa 	Wola Grzymalina Kolonia	\N	5744	5938	1	1827463526172836	2025-01-16 21:24:53.564626	completed
+34	14	2025-01-23 18:33:00+01	2025-01-23 23:44:00+01	Wola Grzymalina Kolonia	Lębork	\N	6915	7391	1	1827463526172836	2025-01-26 22:45:31.928722	completed
+35	14	2025-01-25 12:45:00+01	2025-01-25 18:45:00+01	Lębork	Wola Grzymalina Kolonia	\N	7391	7873	1	1827463526172836	2025-01-26 22:46:32.457353	completed
 \.
 
 
@@ -539,7 +629,7 @@ SELECT pg_catalog.setval('public.container_id_seq', 1, false);
 -- Name: delegation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.delegation_id_seq', 12, true);
+SELECT pg_catalog.setval('public.delegation_id_seq', 15, true);
 
 
 --
@@ -571,10 +661,17 @@ SELECT pg_catalog.setval('public.store_id_seq', 2, true);
 
 
 --
+-- Name: supplier_supplier_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.supplier_supplier_id_seq', 1, false);
+
+
+--
 -- Name: trip_trip_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.trip_trip_id_seq', 28, true);
+SELECT pg_catalog.setval('public.trip_trip_id_seq', 35, true);
 
 
 --
@@ -650,6 +747,14 @@ ALTER TABLE ONLY public.store
 
 
 --
+-- Name: supplier supplier_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.supplier
+    ADD CONSTRAINT supplier_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: trip trip_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -703,6 +808,14 @@ ALTER TABLE ONLY public.container
 
 ALTER TABLE ONLY public.delegation
     ADD CONSTRAINT delegation_user_id_user_id_fk FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: physical_item fk_supplier; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.physical_item
+    ADD CONSTRAINT fk_supplier FOREIGN KEY (supplier_id) REFERENCES public.supplier(id);
 
 
 --
