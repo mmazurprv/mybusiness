@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -8,6 +9,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getAllItems, Item } from "@/lib/actions/list-items";
+import { Pencil } from "lucide-react";
+import Link from "next/link";
 
 export default async function Page() {
   const items: Item[] = await getAllItems();
@@ -58,9 +61,9 @@ export default async function Page() {
                   <TableHead>Quantity</TableHead>
                   <TableHead>Invoice No.</TableHead>
                   <TableHead>Supplier Name</TableHead>
-                  <TableHead>Unit price</TableHead>
-                  <TableHead>Total price</TableHead>
-                  <TableHead>Memo</TableHead>
+                  <TableHead className="text-right">Unit price</TableHead>
+                  <TableHead className="text-right">Total price</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -70,9 +73,22 @@ export default async function Page() {
                     <TableCell>{item.quantity}</TableCell>
                     <TableCell>{item.invoice_number}</TableCell>
                     <TableCell>{item.supplier_name || "Unknown"}</TableCell>
-                    <TableCell>{item.unit_price}</TableCell>
-                    <TableCell>{item.unit_price * item.quantity}</TableCell>
-                    <TableCell>{item.memo}</TableCell>
+                    <TableCell className="text-right">
+                      {item.unit_price}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {item.unit_price * item.quantity}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Button variant="ghost" size="icon" asChild>
+                        <Link
+                          href={`/warehouse/edit/${item.id}`}
+                          aria-label={`Edit ${item.title}`}
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
