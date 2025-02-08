@@ -1,8 +1,13 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { BriefcaseBusiness, Truck, Warehouse } from "lucide-react";
 import packageJson from "@/package.json";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
+  const pathname = usePathname();
   const links = [
     { href: "/delegations", label: "Delegations", icon: Truck },
     { href: "/warehouse", label: "Warehouse", icon: Warehouse },
@@ -29,7 +34,10 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-gray-700 hover:text-foreground p-2 hover:bg-slate-50 rounded-md text-sm font-medium transition-colors duration-150 ease-in-out flex items-center"
+                  className={cn(
+                    "text-gray-700 hover:text-foreground p-2 hover:bg-slate-50 rounded-md text-sm transition-colors duration-150 ease-in-out flex items-center",
+                    { "font-bold": pathname.startsWith(link.href) },
+                  )}
                 >
                   <link.icon className="h-6 w-6 mr-0 sm:mr-2" />
                   <span className="hidden sm:inline">{link.label}</span>
