@@ -77,7 +77,7 @@ export default async function Page() {
                       {item.unit_price}
                     </TableCell>
                     <TableCell className="text-right">
-                      {item.unit_price * item.quantity}
+                      {(item.unit_price * item.quantity).toFixed(2)}
                     </TableCell>
                     <TableCell className="text-right">
                       <Button variant="ghost" size="icon" asChild>
