@@ -45,7 +45,7 @@ export async function getAllItems(): Promise<Item[]> {
       LEFT JOIN item_category c ON i.category_id = c.id
       LEFT JOIN store s ON i.store_id = s.id
       LEFT JOIN supplier sup ON i.supplier_id = sup.id
-      ORDER BY i.id DESC
+      ORDER BY warranty_start_date, id ASC
     `;
 
     // Convert Date fields before returning
