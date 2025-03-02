@@ -14,7 +14,7 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="bg-white shadow-sm">
+    <nav className="bg-white shadow-xs">
       <div className="mx-auto ">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
