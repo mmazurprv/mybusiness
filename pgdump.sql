@@ -2,12 +2,13 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.3
--- Dumped by pg_dump version 16.6
+-- Dumped from database version 17.2
+-- Dumped by pg_dump version 17.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -484,7 +485,10 @@ COPY public.delegation (id, user_id, description, diet_count, status) FROM stdin
 12	1827463526172836	\N	\N	complete
 13	1827463526172836	\N	\N	complete
 14	1827463526172836	\N	\N	complete
-15	1827463526172836	\N	\N	active
+15	1827463526172836	\N	\N	complete
+16	1827463526172836	\N	\N	complete
+17	1827463526172836	\N	\N	complete
+18	1827463526172836	\N	\N	active
 \.
 
 
@@ -520,19 +524,49 @@ COPY public.physical_item (id, store_id, container_id, category_id, organization
 10004	2	\N	1	1	Mocowanie stalowe typu L do silnika krokowego NEMA 17	2	\N	4	2024-09-17	\N	FV/2148/09/2024	\N	5.61	1002
 10005	2	\N	1	1	Silnik krokowy JK42HS40-0504 200 kroków/obr 12V/0,5A/0,43Nm	2	\N	2	2024-09-17	\N	FV/2148/09/2024	\N	56.10	1002
 10006	2	\N	1	1	Łącznik elastyczny - średnica 5 i 5mm stalowe typu L do silnika krokowego NEMA 17	2	\N	1	2024-09-17	\N	FV/2148/09/2024	\N	6.42	1002
-10008	1	\N	1	1	Śruba M4x40 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	12.08	1001
-10009	1	\N	1	1	Śruba M3x35 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	8.18	1001
-10010	1	\N	1	1	Śruba M3x40 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	7.80	1001
-10011	1	\N	1	1	Śruba M5x8 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	14.87	1001
-10012	1	\N	1	1	Śruba M6x10 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	7.13	1001
-10013	1	\N	1	1	Pręt M2x1000	1	\N	1	2024-09-18	\N	10872/2024	\N	10.40	1001
+10007	1	\N	1	1	Śruba M4x35 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	11.08	1001
+10145	1	\N	1	1	Wyłącznik czujnik krańcowy mini z rolką - WK625 - 5szt.	1	0	2	2024-08-19	\N	FV/2148/09/2024	\N	7.72	1002
+10144	1	\N	1	1	Rolka V-Wheel do profilu	1	0	8	2024-08-19	\N	FV/1859/08/2024	\N	14.55	1002
+10143	1	\N	1	1	Nakrętka kasująca luz do śruby trapezowej 8mm	1	0	2	2024-08-19	\N	FV/1859/08/2024	\N	9.15	1002
+10011	1	\N	1	1	Śruba M5x8 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	7.13	1001
+10010	1	\N	1	1	Śruba M3x40 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	14.87	1001
 10014	1	\N	1	1	Pręt M2.5x1000	1	\N	1	2024-09-18	\N	10872/2024	\N	7.13	1001
-10007	1	\N	1	1	Śruba M4x35 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	7.43	1001
+10142	1	\N	1	1	Nakrętka na śrubę trapezową 8mm	1	0	2	2024-08-19	\N	FV/1859/08/2024	\N	6.42	1002
 10002	2	\N	1	1	Sterownik silnika krokowego HY-DIV268N-5A w obudowie - 48V/5A	1	\N	1	2024-09-09	\N	FV/951/09/2024	\N	80.49	1002
 10001	1	\N	2	1	Klatka 500x400x200	1	\N	1	2024-09-11	\N	FA/3/09/2024	\N	700.00	1003
-10015	1	\N	1	1	Przewody do silnika krokowego NEMA17	1	5904384705498	8	2024-08-19	\N	RC/1103/PL/2408	\N	3.02	\N
-10016	1	\N	1	1	Silnik krokowy NEMA17 KS42STH34-1504A - 1,5A - 34mm	1	5904384704910	4	2024-08-19	\N	RC/1103/PL/2408	\N	19.68	\N
-10017	1	\N	1	1	Korkowa podkładka amortyzująca do silnika krokowego NEMA17	1	5904384726967	2	2024-08-19	\N	RC/1103/PL/2408	\N	1.93	\N
+10016	1	\N	1	1	Silnik krokowy NEMA17 KS42STH34-1504A - 1,5A - 34mm	1	0	4	2024-08-19	\N	RC/1103/PL/2408	\N	19.68	\N
+10021	1	\N	1	1	A4988 - sterownik silnika krokowego RepRap 35V/2A - Pololu 1182	1	0	2	2024-08-19	\N	FA/008447/2024	\N	44.21	1002
+10148	1	\N	1	1	Łącznik elastyczny - średnica 5 i 5mm	1	\N	1	\N	\N	FV/2148/09/2024	\N	6.42	1002
+10147	1	\N	1	1	Silnik krokowy JK42HS40-0504 200 kroków/obr 12V/0,5A/0,43Nm	1	\N	2	\N	\N	FV/2148/09/2024	\N	56.10	1002
+10146	1	\N	1	1	Mocowanie stalowe typu L do silnika krokowego NEMA 17	1	\N	4	\N	\N	FV/2148/09/2024	\N	5.61	1002
+10141	1	\N	1	1	Śruba trapezowa 8mm - długość 300mm	1	0	1	2024-08-19	\N	FV/1859/08/2024	\N	17.80	1002
+10132	1	\N	1	1	Nakrętka młoteczkowa T-NUT M5 - 25szt.	1	0	1	2024-08-19	\N	FV/1859/08/2024	\N	22.68	1002
+10127	1	\N	1	1	Prowadnica kabli 500 mm	1	0	2	2024-08-19	\N	FV/1859/08/2024	\N	37.32	1002
+10126	1	\N	1	1	Profil aluminiowy V-Slot 2040 anodowany srebrny 500mm	1	0	8	2024-08-19	\N	FV/1859/08/2024	\N	23.50	1002
+10024	1	\N	1	1	Pasek GT2 2 metry	1	0	1	2024-08-19	\N	FV/1859/08/2024	\N	38.13	1002
+10023	1	\N	1	1	Filament Devil Design PLA White	1	0	2	2024-08-19	\N	FA/008447/2024	\N	12.19	1002
+10022	1	\N	1	1	Sterownik silnika krokowego HY-DIV268N-5A	1	0	2	2024-08-19	\N	FA/008447/2024	\N	80.49	1002
+10020	1	\N	1	1	Wałek prowadzący PS20 h6 L=520mm	1	0	1	2024-08-19	\N	FA/008447/2024	\N	118.43	1005
+10019	1	\N	1	1	Moduł Liniowy ITO60-0850-D02	1	0	1	2024-08-19	\N	FA/008446/2024	\N	2763.55	1005
+10015	1	\N	1	1	Przewody do silnika krokowego NEMA17	1	0	8	2024-08-19	\N	RC/1103/PL/2408	\N	3.02	\N
+10013	1	\N	1	1	Pręt M2x1000	1	\N	1	2024-09-18	\N	10872/2024	\N	7.43	1001
+10012	1	\N	1	1	Śruba M6x10 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	20.40	1001
+10009	1	\N	1	1	Śruba M3x35 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	7.80	1001
+10008	1	\N	1	1	Śruba M4x40 DIN 933 A2	1	\N	1	2024-09-18	\N	10872/2024	\N	8.18	1001
+10140	1	\N	1	1	Mocowanie stalowe typu L do silnika krokowego NEMA 17	1	0	2	2024-08-19	\N	FV/1859/08/2024	\N	5.61	1002
+10139	1	\N	1	1	Koło zębate 20T - GT2 - 5mm	1	0	2	2024-08-19	\N	FV/1859/08/2024	\N	4.80	1002
+10138	1	\N	1	1	Koło zębate 16T do paska GT2 6mm - otwór 5mm	1	0	2	2024-08-19	\N	FV/1859/08/2024	\N	6.42	1002
+10137	1	\N	1	1	Moduł sieciowy Ethernet Shield v1.0 dla Arduino Nano	1	0	1	2024-08-19	\N	FV/1859/08/2024	\N	39.84	1002
+10136	1	\N	1	1	Mocowanie wałka liniowego SK8 - 8mm	1	0	8	2024-08-19	\N	FV/1859/08/2024	\N	8.05	1002
+10135	1	\N	1	1	Sztywne sprzęgło do drukarek 3D Creality - 1szt.	1	0	2	2024-08-19	\N	FV/1859/08/2024	\N	9.67	1002
+10134	1	\N	1	1	Sprzęgło elastyczne aluminiowe 5x8mm	1	0	4	2024-08-19	\N	FV/1859/08/2024	\N	9.67	1002
+10133	1	\N	1	1	Silnik krokowy JK42HS34-0404 200 kroków/obr 12V/0,4A/0,25Nm	1	0	2	2024-08-19	\N	FV/1859/08/2024	\N	47.97	1002
+10131	1	\N	1	1	Nakrętki M3 - 10szt.	1	0	1	2024-08-19	\N	FV/1859/08/2024	\N	3.17	1002
+10130	1	\N	1	1	Śruba M3 12 mm 25 sztuk	1	0	1	2024-08-19	\N	FV/1859/08/2024	\N	12.60	1002
+10129	1	\N	1	1	Nakrętka młoteczkowa T-NUT M3 - 25szt.	1	0	2	2024-08-19	\N	FV/1859/08/2024	\N	20.24	1002
+10128	1	\N	1	1	Profil aluminiowy V-Slot 2020 anodowany srebrny 500mm	1	0	2	2024-08-19	\N	FV/1859/08/2024	\N	13.41	1002
+10018	1	\N	1	1	Moduł Liniowy ITO60-0850-D04_strona napędowa	1	0	1	2024-08-19	\N	FA/008446/2024	\N	3165.16	1005
+10017	1	\N	1	1	Korkowa podkładka amortyzująca do silnika krokowego NEMA17	1	0	2	2024-08-19	\N	RC/1103/PL/2408	\N	1.93	\N
 \.
 
 
@@ -555,7 +589,7 @@ COPY public.supplier (id, full_name, address_street, address_code, address_city,
 1002	BOTLAND B. DERKACZ SPÓŁKA KOMANDYTOWA	Gola 25A	63-640	Bralin	Polska	\N	\N	6192023594	BOTLAND
 1003	ZM PART Zbigniew Martela	Św. Rozalii 13	97-500	Radomsko	Polska	\N	\N	7721194044	ZM PART
 1004	Firma Leda Gurdek Bożena	Nidecka 17	34-122	Wieprz	Polska	\N	\N	5511402765	ABC-RC
-1005	PIVEXIN	\N	\N	\N	\N	\N	\N	\N	\N
+1005	PIVEXIN Technology	Ul. Wyrobiskowa 4	47-440	Nędza, Babice	Polska	\N	\N	6391920505	PIVEXIN
 \.
 
 
@@ -572,6 +606,7 @@ COPY public.trip (id, delegation_id, start_time, end_time, start_location, end_l
 31	13	2025-01-17 07:55:00+01	2025-01-17 14:01:00+01	Wola Grzymalina Kolonia	Lębork	Instalacja NFM	5938	6414	1	1827463526172836	2025-01-18 00:27:45.469374	completed
 24	9	2024-12-28 18:29:00+01	2024-12-28 19:03:00+01	Radomsko	Wola Grzymalina Kolonia	\N	5169	5205	1	1827463526172836	2024-12-28 18:30:41.428003	completed
 23	9	2024-12-28 14:19:00+01	2024-12-28 14:58:00+01	Wola Grzymalina Kolonia	Radomsko	\N	5138	5169	1	1827463526172836	2024-12-28 18:29:16.846423	completed
+38	16	2025-02-16 10:39:00+01	2025-02-16 12:40:00+01	Wola Grzymalina Kolonia	Warszawa	\N	8655	8856	1	1827463526172836	2025-02-16 15:40:43.182414	completed
 20	8	2024-12-18 17:20:00+01	2024-12-18 18:20:00+01	Radom	Huta Żabiowska	\N	4861	4938	1	1827463526172836	2024-12-19 19:21:16.059995	completed
 32	13	2025-01-18 12:45:00+01	2025-01-18 13:45:00+01	Lębork	Gdańsk	Serwis Sąd Piekarnicza	6414	6511	1	1827463526172836	2025-01-18 20:45:18.380442	completed
 22	8	2024-12-19 12:39:00+01	2024-12-19 14:30:00+01	Pruszków	Wola Grzymalina Kolonia	\N	4972	5138	1	1827463526172836	2024-12-19 19:23:41.14364	completed
@@ -593,12 +628,18 @@ COPY public.trip (id, delegation_id, start_time, end_time, start_location, end_l
 27	11	2025-01-03 11:11:00+01	2025-01-03 14:20:00+01	Wola Grzymalina Kolonia	Radom	\N	5255	5398	1	1827463526172836	2025-01-03 22:21:15.681221	completed
 8	4	2024-10-07 16:10:00+02	2024-10-07 23:10:00+02	Wola Grzymalina Kolonia	Lublin	SPotkanie UMCS, testy z NFM	1970	2300	1	1827463526172836	2024-10-17 18:40:02.229747	completed
 28	11	2025-01-03 18:21:00+01	2025-01-03 22:21:00+01	Radom	Wola Grzymalina Kolonia	\N	5398	5550	1	1827463526172836	2025-01-03 22:21:57.282526	completed
+39	16	2025-02-20 21:45:00+01	2025-02-20 23:46:00+01	Warszawa	Wola Grzymalina Kolonia	\N	8856	9035	1	1827463526172836	2025-02-20 23:46:47.619655	completed
 13	6	2024-12-14 07:01:00+01	2024-12-14 09:30:00+01	Wola Grzymalina Kolonia	Chrzanów	-	3200	3308	1	1827463526172836	2024-10-17 18:40:02.229747	completed
 12	5	2024-10-18 15:01:00+02	2024-10-18 21:10:00+02	Września 	Wola Grzymalina Kolonia	Serwis Września	3000	3200	1	1827463526172836	2024-10-17 18:40:02.229747	completed
 29	12	2025-01-16 11:29:00+01	2025-01-16 14:52:00+01	Wola Grzymalina Kolonia	Warszawa 	\N	5550	5744	1	1827463526172836	2025-01-16 14:53:43.459573	completed
 30	12	2025-01-16 19:46:00+01	2025-01-16 21:24:00+01	Warszawa 	Wola Grzymalina Kolonia	\N	5744	5938	1	1827463526172836	2025-01-16 21:24:53.564626	completed
+40	17	2025-02-23 11:09:00+01	2025-02-26 10:43:00+01	Wola Grzymalina Kolonia	Ede nl	\N	9035	10200	1	1827463526172836	2025-02-26 10:44:17.511804	completed
 34	14	2025-01-23 18:33:00+01	2025-01-23 23:44:00+01	Wola Grzymalina Kolonia	Lębork	\N	6915	7391	1	1827463526172836	2025-01-26 22:45:31.928722	completed
 35	14	2025-01-25 12:45:00+01	2025-01-25 18:45:00+01	Lębork	Wola Grzymalina Kolonia	\N	7391	7873	1	1827463526172836	2025-01-26 22:46:32.457353	completed
+36	15	2025-02-13 17:58:00+01	2025-02-13 22:59:00+01	Wola Grzymalina Kolonia	Lublin	\N	7873	8263	1	1827463526172836	2025-02-13 22:59:32.614096	completed
+37	15	2025-02-14 18:24:00+01	2025-02-14 23:24:00+01	Lublin	Wola Grzymalina Kolonia	\N	8263	8655	1	1827463526172836	2025-02-14 23:25:14.652385	completed
+41	17	2025-02-26 10:44:00+01	2025-02-26 12:29:00+01	Ede nl	Lubań 	\N	10200	11066	1	1827463526172836	2025-02-26 12:29:39.366593	completed
+42	17	2025-02-27 13:11:00+01	2025-02-27 18:13:00+01	Lubań 	Wola Grzymalina Kolonia	\N	11066	11433	1	1827463526172836	2025-02-27 18:13:23.816363	completed
 \.
 
 
@@ -629,7 +670,7 @@ SELECT pg_catalog.setval('public.container_id_seq', 1, false);
 -- Name: delegation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.delegation_id_seq', 15, true);
+SELECT pg_catalog.setval('public.delegation_id_seq', 18, true);
 
 
 --
@@ -650,7 +691,7 @@ SELECT pg_catalog.setval('public.organisation_organisation_id_seq', 1, false);
 -- Name: physical_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.physical_item_id_seq', 1, false);
+SELECT pg_catalog.setval('public.physical_item_id_seq', 2, true);
 
 
 --
@@ -671,7 +712,7 @@ SELECT pg_catalog.setval('public.supplier_supplier_id_seq', 1, false);
 -- Name: trip_trip_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.trip_trip_id_seq', 35, true);
+SELECT pg_catalog.setval('public.trip_trip_id_seq', 42, true);
 
 
 --
