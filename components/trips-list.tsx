@@ -17,14 +17,13 @@ export default async function DelegationTripsList({
   const delegations: Delegation[] = await getDelegationsWithTrips(month);
 
   const formatDate = (dateString: string): string => {
-    return new Date(dateString).toLocaleString(undefined, {
+    return new Date(dateString).toLocaleString("pl-PL", {
       hour12: false,
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
-      second: "2-digit",
     });
   };
 
